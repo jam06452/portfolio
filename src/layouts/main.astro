@@ -1,0 +1,27 @@
+---
+import "@/styles/global.css"
+import { ThemeProvider } from "@/components/theme-provider"
+import Navbar from "@/components/Navbar.astro"
+import Footer from "@/components/Footer.astro"
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Astro App</title>
+  </head>
+  <body>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+    <Navbar />
+      <slot />
+      <Footer />
+    </ThemeProvider>
+  </body>
+</html>
