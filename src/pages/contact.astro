@@ -1,7 +1,52 @@
 ---
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
+import { Send } from "lucide-react"
 ---
+
 <Layout>
-    <h1>Contact</h1>
+  <div
+    class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6"
+  >
+    <h1 class="text-8xl font-serif mb-4">Contact</h1>
+    <p class="text-muted-foreground text-sm">Reach out to me!</p>
+    <div class="w-full px-6 pb-24">
+  <div class="grid grid-cols-1 md:grid-cols-2 w-full min-h-75">
+
+    <!-- Left half -->
+    <div class="p-10 border border-border/40">
+      <h2 class="text-3xl font-serif mb-4">Left side</h2>
+      <p class="text-sm text-muted-foreground">
+        Content for the left half of the screen.
+      </p>
+      <form id="messageForm" class="space-y-3 mt-4">
+        <label class="block">
+            <span class="block mb-1">Name:</span>
+            <input type="text" name="name" placeholder="Enter your name" required class="block w-full rounded-md border border-gray-500 bg-gray-300/25 px-2 py-2 text-base outline sm:text-sm"/>
+        </label>
+        <label class="block">
+            <span class="block mb-1">Your email:</span>
+            <input type="email" name="email" placeholder="vejas@vejas.zip" required class="block w-full rounded-md border border-gray-500 bg-gray-300/25 px-2 py-2 text-base outline sm:text-sm"/>
+        </label>
+        <label class="block">
+            <span class="block mb-1">Your message:</span>
+            <textarea name="message" placeholder="Your message goes here..." rows="6" required />
+        </label>
+
+        <Button type="submit" variant={"outline"}><Send/>Send</Button>
+      </form>
+    </div>
+
+    <!-- Right half -->
+    <div class="p-10 border border-border/40">
+      <h2 class="text-3xl font-serif mb-4">Right side</h2>
+      <p class="text-sm text-muted-foreground">
+        Content for the right half of the screen.
+      </p>
+    </div>
+
+  </div>
+</div>
+    </div>
+  </div>
 </Layout>

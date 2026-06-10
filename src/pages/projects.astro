@@ -3,10 +3,10 @@ import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
 import { Image } from "astro:assets"
 import { ArrowUpRight } from "lucide-react"
-import GitHub from "../assets/icons/Github.svg"
+import GitHub from "https://cdn.vejas.zip/assets/icons/Github.svg"
 import { getCollection, render } from "astro:content"
 import { Badge } from "@/components/ui/badge"
-import Blueprint from "../assets/icons/bp.svg"
+import Blueprint from "https://cdn.vejas.zip/assets/icons/bp.svg"
 
 
 const projects = await getCollection("projects")
@@ -31,7 +31,7 @@ const rendered = await Promise.all(
     {
       rendered.map(({ slug, data, content: { Content } }, i) => (
         <div
-          class="project-card group relative flex flex-col p-8 border-b border-r border-border/40 cursor-pointer hover:bg-accent/20 transition-colors duration-200 rounded-2xl"
+          class="project-card group relative flex flex-col p-8 border border-border/40 cursor-pointer hover:bg-accent/20 rounded-2xl"
           data-title={data.title}
           data-category={data.category ?? ""}
           data-github={data.github ?? ""}
@@ -115,9 +115,8 @@ const rendered = await Promise.all(
   <!-- Modal -->
   <div
     id="project-modal"
-    class="fixed inset-0 z-50 hidden items-start justify-center pt-16 px-4 pb-8"
-  >
-    <!-- Backdrop -->
+    class="fixed inset-0 z-50 hidden items-start justify-center pt-16 px-4 pb-8">
+
     <div
       id="modal-backdrop"
       class="absolute inset-0 bg-background/80 backdrop-blur-sm"
@@ -130,7 +129,7 @@ const rendered = await Promise.all(
     >
       <button
         id="modal-close"
-        class="absolute top-4 left-4 p-2 rounded-md hover:bg-accent transition-colors"
+        class="absolute top-4 left-4 p-2 rounded-md hover:bg-accent"
         aria-label="Close"
       >
         <svg
