@@ -3,10 +3,10 @@ import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
 import { Image } from "astro:assets"
 import { ArrowUpRight } from "lucide-react"
-import GitHub from "https://cdn.vejas.zip/assets/icons/Github.svg"
+const GitHub = "https://cdn.vejas.zip/assets/icons/Github.svg"
 import { getCollection, render } from "astro:content"
 import { Badge } from "@/components/ui/badge"
-import Blueprint from "https://cdn.vejas.zip/assets/icons/bp.svg"
+const Blueprint = "https://cdn.vejas.zip/assets/icons/bp.svg"
 
 
 const projects = await getCollection("projects")

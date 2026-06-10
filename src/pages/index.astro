@@ -1,108 +1,130 @@
 ---
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
-import { Image } from "astro:assets"
-import HeroDark from "https://cdn.vejas.zip/assets/hero-dark.svg"
-import HeroLight from "https://cdn.vejas.zip/assets/hero-light.svg"
 import { ArrowUpRight } from "lucide-react"
-import GitHub from "https://cdn.vejas.zip/assets/icons/Github.svg"
-import TwinImg from "https://cdn.vejas.zip/assets/projectimages/Twin3D.png"
-import KazePCB from "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
+
+const HeroDark = "https://cdn.vejas.zip/assets/hero-dark.svg"
+const HeroLight = "https://cdn.vejas.zip/assets/hero-light.svg"
+const GitHub = "https://cdn.vejas.zip/assets/icons/Github.svg"
+const TwinImg = "https://cdn.vejas.zip/assets/projectimages/Twin3D.png"
+const KazePCB = "https://cdn.vejas.zip/assets/projectimages/KazePCB.png"
 ---
 
 <Layout>
+  <!-- HERO -->
   <div
     class="flex flex-col w-full p-6 pt-32 pb-48 items-center justify-start text-center gap-6"
   >
-    <Image
+    <img
       src={HeroDark}
       alt="Hero illustration"
-      aria-label={"Vejas S"}
+      aria-label="Vejas S"
       class="w-full max-w-4xl hidden dark:block"
     />
-    <Image
+    <img
       src={HeroLight}
       alt="Hero illustration"
-      aria-label={"Vejas S"}
+      aria-label="Vejas S"
       class="w-full max-w-4xl dark:hidden"
     />
+
     <h2 class="text-3xl font-serif max-w-xl balance">
       is a teen dev based in Luxembourg, who loves to tinker with hardware and
       create polished websites.
     </h2>
   </div>
 
-  <div class="grid grid-cols-2 w-full border-t border-border/40 items-start mb-32">
-    <div class="flex items-center flex-col justify-center p-12">
-      <h1 class="text-7xl font-serif pb-12">Projects</h3>
+  <!-- MAIN GRID -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 w-full border-t border-border/40 items-start mb-32">
+
+    <!-- PROJECTS -->
+    <div class="flex items-center flex-col justify-center p-12 border-r border-border/40">
+      <h1 class="text-7xl font-serif pb-12">Projects</h1>
+
       <div class="pb-6">
-        <!-- I will harcode projects for now, since I dont have that many but will have to think for solutions for the actual proj page. -->
-        <div class="flex items-start gap-4 pb-6">
-          <Image
+
+        <!-- Project 1 -->
+        <div class="flex items-start gap-4 pb-10">
+          <img
             src={TwinImg}
             alt="Image of Twin PCB"
             class="w-2/5 h-auto rounded-2xl object-cover shrink-0"
           />
+
           <div class="flex flex-col gap-2">
-            <h2 class="text-3xl font-serif">Twin</h1>
-            <p class="text-sm">
+            <h2 class="text-3xl font-serif">Twin</h2>
+
+            <p class="text-sm text-muted-foreground">
               Ut nisi aute ipsum anim sit et nulla duis aute Lorem ad minim ad.
-              Sint fugiat tempor duis. Officia consequat deserunt deserunt elit
-              ex sunt. Quis qui eiusmod laboris cillum. Eu duis id ea magna
-              consectetur.
+              Sint fugiat tempor duis.
             </p>
+
             <div class="flex gap-2">
-              <a href="/projects/twin"
-                ><Button variant={"default"} size={"sm"}
-                  ><ArrowUpRight />Read more</Button
-                ></a
-              >
-              <a href="https://github.com/las-vejas/twin" target="_blank"
-                ><Button variant={"outline"} size={"sm"}
-                  ><GitHub /> Repository</Button
-                ></a
-              >
+              <a href="/projects/twin">
+                <Button variant="default" size="sm">
+                  <ArrowUpRight /> Read more
+                </Button>
+              </a>
+
+              <a href="https://github.com/las-vejas/twin" target="_blank">
+                <Button variant="outline" size="sm">
+                  <img src={GitHub} alt="" class="size-4" />
+                  Repository
+                </Button>
+              </a>
             </div>
           </div>
         </div>
-        <div class="flex flex-row-reverse items-start gap-4 pb-6">
-          <Image
+
+        <!-- Project 2 -->
+        <div class="flex flex-row-reverse items-start gap-4 pb-10">
+          <img
             src={KazePCB}
-            alt="Image of Twin PCB"
-            class="w-2/5 h-auto rounded-lg object-cover shrink-0"
+            alt="Image of Kaze PCB"
+            class="w-2/5 h-auto rounded-2xl object-cover shrink-0"
           />
+
           <div class="flex flex-col gap-2">
-            <h2 class="text-3xl font-serif">Kaze</h1>
-            <p class="text-sm">
+            <h2 class="text-3xl font-serif">Kaze</h2>
+
+            <p class="text-sm text-muted-foreground">
               Ut nisi aute ipsum anim sit et nulla duis aute Lorem ad minim ad.
-              Sint fugiat tempor duis. Officia consequat deserunt deserunt elit
-              ex sunt. Quis qui eiusmod laboris cillum. Eu duis id ea magna
-              consectetur.
+              Sint fugiat tempor duis.
             </p>
+
             <div class="flex gap-2">
-              <a href="/projects/kaze"
-                ><Button variant={"default"} size={"default"}
-                  ><ArrowUpRight />Read more</Button
-                ></a
-              >
-              <a href="https://github.com/las-vejas/kaze" target="_blank"
-                ><Button variant={"outline"} size={"default"}
-                  ><GitHub /> Repository</Button
-                ></a
-              >
+              <a href="/projects/kaze">
+                <Button variant="default" size="sm">
+                  <ArrowUpRight /> Read more
+                </Button>
+              </a>
+
+              <a href="https://github.com/las-vejas/kaze" target="_blank">
+                <Button variant="outline" size="sm">
+                  <img src={GitHub} alt="" class="size-4" />
+                  Repository
+                </Button>
+              </a>
             </div>
           </div>
         </div>
+
       </div>
-      <a href="/projects"
-        ><Button variant={"outline"} size={"lg"}
-          ><ArrowUpRight />Projects Page</Button
-        ></a
-      >
+
+      <a href="/projects">
+        <Button variant="outline" size="lg">
+          <ArrowUpRight /> Projects Page
+        </Button>
+      </a>
     </div>
+
+    <!-- BLOG -->
     <div class="flex items-center flex-col justify-center p-12">
-      <h1 class="text-7xl font-serif pb-12">Blog</h3>
-      <div> <p class="text-xs text-muted-foreground text-center pt-2">Posts coming soon!</p> <!-- blog posts go here, maybe the 2 top newest ones? --></div>
+      <h1 class="text-7xl font-serif pb-12">Blog</h1>
+      <p class="text-xs text-muted-foreground text-center pt-2">
+        Posts coming soon!
+      </p>
     </div>
+
   </div>
 </Layout>
