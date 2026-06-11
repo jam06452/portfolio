@@ -97,7 +97,7 @@ import { Send } from "lucide-react"
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form).entries());
-        const res = await fetch("api/sendemail", {
+        const res = await fetch("/api/sendemail", {
             method: "POST",
             headers: { "Content-Type": "applications/json" },
             body: JSON.stringify(data)
