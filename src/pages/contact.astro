@@ -1,113 +1,200 @@
 ---
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
-import { Send } from "lucide-react"
+import { Image } from "astro:assets"
+const GitHub = "src/assets/icons/Github.svg"
+import { Mail, Send } from "lucide-react"
 ---
 
 <Layout>
-  <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
+  <div
+    class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6"
+  >
     <h1 class="text-8xl font-serif mb-4">Contact</h1>
     <p class="text-muted-foreground text-sm">Reach out to me!</p>
     <div class="w-full px-6 pb-24 mt-12">
-  <div class="grid grid-cols-1 md:grid-cols-2 w-full min-h-75">
-    <div class="p-0 md:p-6">
-      <h2 class="text-4xl font-serif font-medium tracking-tight mb-2">Contact Me</h2>
-      <p class="text-sm text-muted-foreground mb-8">
-        Send me a message using the form below!
-      </p>
-      
-      <form id="contactForm" method="POST" class="space-y-5">
-        <div class="space-y-1.5">
-          <label for="name" class="text-sm font-medium tracking-wide">Name</label>
-          <input type="text" id="name" name="name" placeholder="Enter your name" required 
-            class="flex h-10 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+      <div class="grid grid-cols-1 md:grid-cols-2 w-full min-h-75">
+        <div class="p-0 md:p-6">
+          <h2 class="text-5xl font-serif font-medium tracking-tight mb-2">
+            Contact Me
+          </h2>
+          <p class="text-sm text-muted-foreground mb-8">
+            Send me a message using the form below!
+          </p>
+
+          <form id="contactForm" method="POST" class="space-y-4">
+            <div class="flex flex-col gap-1.5">
+              <label for="name" class="text-sm font-medium tracking-wide text-left"
+                >Name: </label
+              >
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Enter your name"
+                required
+                class="flex h-10 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label for="email" class="text-sm font-medium tracking-wide text-left"
+                >Your email: </label
+              >
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="vejas@vejas.zip"
+                required
+                class="flex h-10 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+              <label for="message" class="text-sm font-medium tracking-wide text-left"
+                >Your message: </label
+              >
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Your message goes here..."
+                rows="5"
+                required
+                class="flex min-h-30 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"
+              ></textarea>
+            </div>
+
+            <Button
+              type="submit"
+              variant="outline"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 mt-2"
+            >
+              <Send className="w-4 h-4" />
+              <span>Send Message</span>
+            </Button>
+          </form>
         </div>
 
-        <div class="space-y-1.5">
-          <label for="email" class="text-sm font-medium tracking-wide">Your email</label>
-          <input type="email" id="email" name="email" placeholder="vejas@vejas.zip" required 
-            class="flex h-10 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"/>
+        <div class="p-10 border-border/40">
+          <h2 class="text-5xl font-serif mb-4">Where you may find me!</h2>
+
+          <p class="text-sm text-muted-foreground leading-relaxed mb-4">
+            I'm usually working on projects, experimenting with hardware, or
+            building websites. You might also find me coding, refining UI
+            details, or exploring new tech ideas.
+          </p>
+
+          <div class="flex flex-col gap-3 text-md justify-center items-center pt-4">
+            <a
+              href="https://github.com/las-vejas"
+              target="_blank"
+              class="inline-flex items-center gap-2.5 hover:underline text-foreground"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_257_205)">
+                  <path
+                    d="M5.99999 12.6667C2.66666 13.6667 2.66666 11 1.33333 10.6667M10.6667 14.6667V12.0867C10.6917 11.7688 10.6487 11.4492 10.5407 11.1492C10.4326 10.8492 10.2619 10.5756 10.04 10.3467C12.1333 10.1133 14.3333 9.32 14.3333 5.68C14.3332 4.74922 13.9751 3.85413 13.3333 3.18C13.6372 2.36567 13.6157 1.46557 13.2733 0.666666C13.2733 0.666666 12.4867 0.433332 10.6667 1.65333C9.13867 1.23921 7.52799 1.23921 5.99999 1.65333C4.17999 0.433332 3.39333 0.666666 3.39333 0.666666C3.05091 1.46557 3.02942 2.36567 3.33333 3.18C2.68675 3.85913 2.32834 4.76231 2.33333 5.7C2.33333 9.31333 4.53333 10.1067 6.62666 10.3667C6.40733 10.5933 6.23817 10.8636 6.1302 11.1599C6.02223 11.4563 5.97787 11.772 5.99999 12.0867V14.6667"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_257_205">
+                    <rect width="16" height="16" fill="white"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+              <span>GitHub</span>
+            </a>
+
+            <a
+              href="mailto:vejas@vejas.zip"
+              class="inline-flex items-center gap-2.5 hover:underline text-foreground"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Email</span>
+            </a>
+
+            <a
+              href="https://discord.com"
+              target="_blank"
+              class="inline-flex items-center gap-2.5 hover:underline text-foreground"
+            >
+              <svg
+                viewBox="0 0 260 260"
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-4"
+              >
+                <path
+                  d="M216.856 16.597A208.502 208.502 0 0 0 164.042 0c-2.275 4.113-4.933 9.645-6.766 14.046-19.692-2.961-39.203-2.961-58.533 0-1.832-4.4-4.55-9.933-6.846-14.046a207.809 207.809 0 0 0-52.855 16.638C5.618 67.147-3.443 116.4 1.087 164.956c22.169 16.555 43.653 26.612 64.775 33.193A161.094 161.094 0 0 0 79.735 175.3a136.413 136.413 0 0 1-21.846-10.632 108.636 108.636 0 0 0 5.356-4.237c42.122 19.702 87.89 19.702 129.51 0a131.66 131.66 0 0 0 5.355 4.237 136.07 136.07 0 0 1-21.886 10.653c4.006 8.02 8.638 15.67 13.873 22.848 21.142-6.58 42.646-16.637 64.815-33.213 5.316-56.288-9.08-105.09-38.056-148.36ZM85.474 135.095c-12.645 0-23.015-11.805-23.015-26.18s10.149-26.2 23.015-26.2c12.867 0 23.236 11.804 23.015 26.2.02 14.375-10.148 26.18-23.015 26.18Zm85.051 0c-12.645 0-23.014-11.805-23.014-26.18s10.148-26.2 23.014-26.2c12.867 0 23.236 11.804 23.015 26.2 0 14.375-10.148 26.18-23.015 26.18Z"
+                  fill="currentColor"></path>
+              </svg>
+              <span>Discord</span>
+            </a>
+
+            <a
+              href="https://hackclub.enterprise.slack.com/team/U0930DMR4BA"
+              target="_blank"
+              class="inline-flex items-center gap-2.5 hover:underline text-foreground"
+            >
+              <svg
+                viewBox="0 0 2448 2453"
+                xmlns="http://www.w3.org/2000/svg"
+                class="size-4"
+              >
+                <g fill="currentColor" fill-rule="evenodd" clip-rule="evenodd">
+                  <path
+                    d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z"
+                  ></path>
+                  <path
+                    d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z"
+                  ></path>
+                  <path
+                    d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z"
+                  ></path>
+                  <path
+                    d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0"
+                  ></path>
+                </g>
+              </svg>
+              <span>Hack Club Slack</span>
+            </a>
+          </div>
         </div>
-
-        <div class="space-y-1.5">
-          <label for="message" class="text-sm font-medium tracking-wide">Your message</label>
-          <textarea id="message" name="message" placeholder="Your message goes here..." rows="5" required  
-            class="flex min-h-30 w-full rounded-md border border-border/60 bg-muted/30 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none"/>
-        </div>
-
-        <Button type="submit" variant="outline" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2 mt-2">
-          <Send className="w-4 h-4"/>
-          <span>Send Message</span>
-        </Button>
-      </form>
-    </div>
-
-    <div class="p-10 border-t border-b border-border/40">
-  <h2 class="text-3xl font-serif mb-4">Where you may find me!</h2>
-
-  <p class="text-sm text-muted-foreground leading-relaxed mb-4">
-    I'm usually working on projects, experimenting with hardware, or building websites. You might also find me coding, refining UI details, or exploring new tech ideas.
-  </p>
-
-  <div class="flex flex-col gap-2 text-sm">
-    <a
-      href="https://github.com/las-vejas"
-      target="_blank"
-      class="hover:underline text-foreground"
-    >
-      GitHub
-    </a>
-
-    <a
-      href="mailto:vejas@vejas.zip"
-      class="hover:underline text-foreground"
-    >
-      Email
-    </a>
-
-    <a
-      href="https://discord.com"
-      target="_blank"
-      class="hover:underline text-foreground"
-    >
-      Discord
-    </a>
-    <a
-      href="https://hackclub.enterprise.slack.com/team/U0930DMR4BA"
-      target="_blank"
-      class="hover:underline text-foreground"
-    >
-      Hack Club Slack
-    </a>
-  </div>
-</div>
-
-  </div>
-</div>
+      </div>
     </div>
   </div>
 </Layout>
 
 <script lang="ts">
-    const form = document.getElementById("contactForm");
-    const message = document.getElementById("formMessage");
+  const form = document.getElementById("contactForm")
+  const message = document.getElementById("formMessage")
 
-    if (!form || !(form instanceof HTMLFormElement)) throw new Error("Form not found");
+  if (!form || !(form instanceof HTMLFormElement))
+    throw new Error("Form not found")
 
-    form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(form).entries());
-        const res = await fetch("/api/sendemail", {
-            method: "POST",
-            headers: { "Content-Type": "applications/json" },
-            body: JSON.stringify(data)
-        });
-        if (res.ok) {
-            message?.classList.remove("hidden");
-            form.reset();
-        } else {
-            alert("Error sending message.");
-            console.error(await res.text());
-        }
-    });
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault()
+    const data = Object.fromEntries(new FormData(form).entries())
+    const res = await fetch("/api/sendemail", {
+      method: "POST",
+      headers: { "Content-Type": "applications/json" },
+      body: JSON.stringify(data),
+    })
+    if (res.ok) {
+      message?.classList.remove("hidden")
+      form.reset()
+    } else {
+      alert("Error sending message.")
+      console.error(await res.text())
+    }
+  })
 </script>
