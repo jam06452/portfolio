@@ -47,10 +47,12 @@ const featured = rendered.filter((p: any) => p.data.featured).slice(0, 2)
           featured.map((p: any, i: number) => (
             <div class={i % 2 === 1 ? "flex flex-row-reverse items-start gap-4 pb-10" : "flex items-start gap-4 pb-10"}>
               {
-                p.data.image?.src ? (
-                  <img src={p.data.image.src} alt={p.data.title} class="w-2/5 h-auto rounded-2xl object-cover shrink-0" />
-                ) : userData.cdn.assets.projectImages[p.id] ? (
-                  <img src={userData.cdn.assets.projectImages[p.id]} alt={p.data.title} class="w-2/5 h-auto rounded-2xl object-cover shrink-0" />
+                p.data.image ? (
+                  typeof p.data.image === "string" && p.data.image.startsWith("http") ? (
+                    <img src={p.data.image} alt={p.data.title} class="w-2/5 h-auto rounded-2xl object-cover shrink-0" />
+                  ) : (
+                    <img src={p.data.image.src} alt={p.data.title} class="w-2/5 h-auto rounded-2xl object-cover shrink-0" />
+                  )
                 ) : null
               }
 

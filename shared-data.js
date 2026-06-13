@@ -30,9 +30,6 @@ export const userData = {
       heroLight: "https://cdn.vejas.zip/assets/hero-light.svg",
       githubIcon: "https://cdn.vejas.zip/assets/icons/Github.svg",
       blueprintIcon: "https://cdn.vejas.zip/assets/icons/bp.svg",
-      projectImages: {
-        twin: "https://cdn.vejas.zip/assets/projectimages/Twin3D.png"
-      },
     },
   },
 }
