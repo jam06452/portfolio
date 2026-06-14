@@ -18,32 +18,32 @@ const featured = rendered
 <Layout>
   <!-- HERO -->
   <div
-    class="flex flex-col w-full p-6 pt-32 pb-48 items-center justify-start text-center gap-6"
+    class="flex flex-col w-full items-center justify-start gap-6 px-4 pt-20 pb-24 text-center sm:px-6 sm:pt-24 sm:pb-32 lg:pt-28 lg:pb-40"
   >
     <img
       src={userData.cdn.assets.heroDark}
       alt="Hero illustration"
       aria-label={userData.fullName}
-      class="w-full max-w-4xl hidden dark:block"
+      class="w-full max-w-3xl hidden dark:block"
     />
     <img
       src={userData.cdn.assets.heroLight}
       alt="Hero illustration"
       aria-label={userData.fullName}
-      class="w-full max-w-4xl dark:hidden"
+      class="w-full max-w-3xl dark:hidden"
     />
 
-    <h2 class="text-3xl font-serif max-w-xl balance">
+    <h2 class="max-w-xl text-2xl font-serif balance sm:text-3xl">
       is a {userData.bio.split("based")[1].trim()}
     </h2>
   </div>
 
   <!-- MAIN GRID -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 w-full border-t border-border/40 items-start mb-32">
+  <div class="grid w-full grid-cols-1 items-start border-t border-border/40 mb-20 lg:grid-cols-2 lg:mb-28">
 
     <!-- PROJECTS -->
-    <div class="flex items-center flex-col justify-center p-12 border-r border-border/40">
-      <h1 class="text-7xl font-serif pb-12">Projects</h1>
+    <div class="flex flex-col items-center justify-center p-6 border-border/40 sm:p-8 lg:border-r lg:p-10">
+      <h1 class="pb-10 text-4xl font-serif sm:text-5xl lg:text-6xl">Projects</h1>
 
       <div class="pb-6">
         {
@@ -94,8 +94,8 @@ const featured = rendered
     </div>
 
     <!-- BLOG -->
-    <div class="flex items-center flex-col justify-center p-12">
-      <h1 class="text-7xl font-serif pb-12">Blog</h1>
+    <div class="flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10">
+      <h1 class="pb-10 text-4xl font-serif sm:text-5xl lg:text-6xl">Blog</h1>
       <p class="text-xs text-muted-foreground text-center pt-2">
         <a href="/blog" class="underline underline-offset-4 hover:text-foreground">
           Browse the blog

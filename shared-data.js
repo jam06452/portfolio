@@ -19,7 +19,7 @@ export const userData = {
       url: "https://github.com/jam06452",
     },
     discord: "https://discord.com",
-    slack: "https://hackclub.enterprise.slack.com/team/U0930DMR4BA",
+    slack: "https://hackclub.enterprise.slack.com/team/U0A7YQ0KVKJ",
   },
 
   // CDN Configuration

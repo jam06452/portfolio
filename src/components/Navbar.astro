@@ -6,13 +6,13 @@ import { Button } from "@/components/ui/button"
 ---
 
 <!-- Reorganized Navbar: brand left, links centered, social+theme right -->
-<nav class="flex items-center justify-between w-full px-6 py-4 border-b border-border bg-background text-foreground">
+<nav class="flex items-center justify-between w-full border-b border-border bg-background px-4 py-3 text-foreground sm:px-6">
   <div class="flex items-center gap-4 flex-1">
-    <a href="/" class="text-2xl font-serif hover:text-muted-foreground">{userData.name}</a>
+    <a href="/" class="text-xl font-serif hover:text-muted-foreground sm:text-2xl">{userData.name}</a>
   </div>
 
   <div class="flex-1 flex justify-center">
-    <ul class="flex items-center gap-6 text-sm font-medium">
+    <ul class="flex items-center gap-4 text-sm font-medium sm:gap-6">
       <li><a href="/projects" class="hover:text-muted-foreground hover:underline">Projects</a></li>
       <li><a href="/blog" class="hover:text-muted-foreground">Blog</a></li>
       <li><a href="/contact" class="hover:text-muted-foreground">Contact</a></li>
@@ -34,7 +34,7 @@ import { Button } from "@/components/ui/button"
       </svg>
     </a>
 
-    <Button id="themeToggle" variant={"outline"} size={"icon-lg"}>
+    <Button id="themeToggle" variant={"outline"} size={"icon"}>
       <Sun className="hidden dark:block" />
       <Moon className="block dark:hidden" />
     </Button>

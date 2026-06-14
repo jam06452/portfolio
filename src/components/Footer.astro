@@ -11,12 +11,12 @@ const commitData = await (async () => {
 })()
 ---
 
-<footer class="flex flex-col items-center justify-center w-full py-8 gap-8 bg-background text-foreground text-center">
-    <div class="text-7xl md:text-8xl font-serif tracking-wide select-none">
+<footer class="flex flex-col items-center justify-center w-full py-10 gap-6 bg-background text-foreground text-center">
+    <div class="text-4xl font-serif tracking-wide select-none sm:text-5xl md:text-6xl">
         {userData.fullName}
     </div>
 
-    <div class="flex flex-wrap w-full items-center justify-around text-4xl md:text-4xl font-serif font-light lowercase hover:text-muted-foreground">
+    <div class="flex flex-wrap w-full items-center justify-center gap-x-6 gap-y-3 text-lg font-serif font-light lowercase text-muted-foreground sm:text-xl md:text-2xl">
         <a href="/about" class="hover:text-foreground transition-colors">about</a>
         <a href="/guestbook" class="hover:text-foreground transition-colors">guestbook</a>
         <a href="/projects" class="hover:text-foreground transition-colors">projects</a>
@@ -25,7 +25,7 @@ const commitData = await (async () => {
         <a href="/contact" class="hover:text-foreground transition-colors">contact</a>
     </div>
 
-    <div class="text-md font-serif tracking-wider">
+    <div class="text-sm font-serif tracking-wider text-muted-foreground sm:text-base">
         commit
         {commitData ? (
             <>
