@@ -64,7 +64,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const entries = await context.env.DB.prepare(
     `SELECT id, name, message, created_at
      FROM guestbook_entries
-     ORDER BY id DESC
+     ORDER BY created_at DESC, id DESC
      LIMIT ?`
   )
     .bind(GUESTBOOK_LIMIT)

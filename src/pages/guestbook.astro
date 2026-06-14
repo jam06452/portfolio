@@ -82,16 +82,28 @@ import { Button } from "@/components/ui/button"
 </Layout>
 
 <script>
+    // @ts-nocheck
+
+    /**
+     * @typedef {{
+     *   id: string
+     *   name: string
+     *   message: string
+     *   created_at: string
+     * }} GuestbookEntry
+     */
+
     const form = document.getElementById("guestbookForm")
     const status = document.getElementById("guestbookStatus")
     const entries = document.getElementById("guestbookEntries")
     const count = document.getElementById("guestbookCount")
 
-    if (!(form instanceof HTMLFormElement)) {
-        throw new Error("Guestbook form not found")
-    }
-
-    if (!entries || !count || !status) {
+    if (
+        !(form instanceof HTMLFormElement) ||
+        !(status instanceof HTMLElement) ||
+        !(entries instanceof HTMLDivElement) ||
+        !(count instanceof HTMLElement)
+    ) {
         throw new Error("Guestbook containers not found")
     }
 
@@ -100,8 +112,11 @@ import { Button } from "@/components/ui/button"
         timeStyle: "short",
     })
 
+    /**
+     * @param {GuestbookEntry[]} items
+     */
     const renderEntries = (items) => {
-        entries.textContent = ""
+        entries.replaceChildren()
         count.textContent = `${items.length} ${items.length === 1 ? "entry" : "entries"}`
 
         if (items.length === 0) {
@@ -150,7 +165,7 @@ import { Button } from "@/components/ui/button"
                 throw new Error(await response.text())
             }
 
-            const data = await response.json()
+            const data = /** @type {{ entries?: GuestbookEntry[] }} */ (await response.json())
             renderEntries(data.entries ?? [])
             status.textContent = ""
         } catch (error) {
@@ -164,7 +179,7 @@ import { Button } from "@/components/ui/button"
         event.preventDefault()
 
         const formData = new FormData(form)
-        const payload = Object.fromEntries(formData.entries())
+        const payload = /** @type {Record<string, string>} */ (Object.fromEntries(formData.entries()))
 
         status.textContent = "Saving entry..."
 
@@ -176,7 +191,9 @@ import { Button } from "@/components/ui/button"
             })
 
             if (!response.ok) {
-                const result = await response.json().catch(() => null)
+                const result = /** @type {{ error?: string } | null} */ (
+                    await response.json().catch(() => null)
+                )
                 throw new Error(result?.error ?? "Unable to save entry.")
             }
 
