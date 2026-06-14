@@ -19,6 +19,7 @@ const MESSAGE_MAX_LENGTH = 1000
 const GUESTBOOK_LIMIT = 50
 
 const uuidv7 = (): string => {
+  console.log("[guestbook] uuidv7:start")
   const now = Date.now()
   const timeHigh = Math.floor(now / 0x100000000)
   const timeLow = now & 0xffffffff
@@ -31,6 +32,7 @@ const uuidv7 = (): string => {
 }
 
 const json = (body: unknown, status = 200) => {
+  console.log("[guestbook] json:response", { status })
   return new Response(JSON.stringify(body), {
     status,
     headers: JSON_HEADERS,
@@ -38,12 +40,14 @@ const json = (body: unknown, status = 200) => {
 }
 
 const parseInput = async (request: Request) => {
+  console.log("[guestbook] parseInput:start")
   const payload = (await request.json().catch(() => null)) as {
     name?: unknown
     message?: unknown
   } | null
 
   if (!payload) {
+    console.log("[guestbook] parseInput:invalid-payload")
     return null
   }
 
@@ -51,17 +55,27 @@ const parseInput = async (request: Request) => {
   const message = typeof payload.message === "string" ? payload.message.trim() : ""
 
   if (!name || !message) {
+    console.log("[guestbook] parseInput:missing-fields")
     return null
   }
 
   if (name.length > NAME_MAX_LENGTH || message.length > MESSAGE_MAX_LENGTH) {
+    console.log("[guestbook] parseInput:exceeds-limits", {
+      nameLength: name.length,
+      messageLength: message.length,
+    })
     return null
   }
 
+  console.log("[guestbook] parseInput:valid", {
+    nameLength: name.length,
+    messageLength: message.length,
+  })
   return { name, message }
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+  console.log("[guestbook] onRequestGet:start")
   const entries = await context.env.DB.prepare(
     `SELECT id, name, message, created_at
      FROM guestbook_entries
@@ -71,13 +85,18 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     .bind(GUESTBOOK_LIMIT)
     .all<GuestbookEntry>()
 
+  console.log("[guestbook] onRequestGet:success", {
+    count: entries.results?.length ?? 0,
+  })
   return json({ entries: entries.results ?? [] })
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
+  console.log("[guestbook] onRequestPost:start")
   const input = await parseInput(context.request)
 
   if (!input) {
+    console.log("[guestbook] onRequestPost:invalid-input")
     return json(
       { error: "Please provide a name and message within the allowed length limits." },
       400
@@ -101,5 +120,6 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     .bind(id)
     .first<GuestbookEntry>()
 
+  console.log("[guestbook] onRequestPost:created", { id })
   return json({ entry: createdEntry }, 201)
 }

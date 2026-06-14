@@ -6,9 +6,15 @@ interface Env {
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
+  console.log('[sendemail] onRequestPost:start');
   try {
     // 1. Parse the incoming JSON body from your frontend script
     const { name, email, message } = await context.request.json() as any;
+    console.log('[sendemail] onRequestPost:payload-parsed', {
+      hasName: Boolean(name),
+      hasEmail: Boolean(email),
+      messageLength: typeof message === 'string' ? message.length : 0,
+    });
 
     // 2. Initialize Resend with the secret variable from Cloudflare
     const resend = new Resend(context.env.RESEND_API_KEY);
@@ -28,15 +34,20 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     });
 
     if (error) {
+      console.error('[sendemail] onRequestPost:send-failed', { error: error.message });
       return new Response(JSON.stringify({ error: error.message }), { status: 400 });
     }
 
+    console.log('[sendemail] onRequestPost:send-success', { id: data?.id });
     return new Response(JSON.stringify({ success: true, id: data?.id }), {
       status: 200,
       headers: { 'Content-Type': 'applications/json' },
     });
 
   } catch (err: any) {
+    console.error('[sendemail] onRequestPost:exception', {
+      error: err?.message || 'Internal Error',
+    });
     return new Response(JSON.stringify({ error: err.message || 'Internal Error' }), { 
       status: 500 
     });
@@ -44,6 +55,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 };
 
 export const onRequestOptions: PagesFunction = async () => {
+  console.log('[sendemail] onRequestOptions:start');
   return new Response(null, {
     status: 204,
     headers: {
