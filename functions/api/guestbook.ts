@@ -75,6 +75,9 @@ const parseInput = async (request: Request) => {
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
+    if (!context.env.DB) {
+        return json({ error: "DB binding not found" }, 500)
+  }
   console.log("[guestbook] onRequestGet:start")
   const entries = await context.env.DB.prepare(
     `SELECT id, name, message, created_at
