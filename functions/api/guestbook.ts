@@ -11,6 +11,7 @@ type GuestbookEntry = {
 
 const JSON_HEADERS = {
   "Content-Type": "application/json; charset=utf-8",
+  "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
 }
 
 const NAME_MAX_LENGTH = 60
