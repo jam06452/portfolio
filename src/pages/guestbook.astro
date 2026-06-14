@@ -160,7 +160,7 @@ import { Button } from "@/components/ui/button"
         status.textContent = "Loading entries..."
 
         try {
-            const response = await fetch("/api/guestbook")
+            const response = await fetch("/api/guestbook?t=1")
             if (!response.ok) {
                 throw new Error(await response.text())
             }
@@ -184,7 +184,7 @@ import { Button } from "@/components/ui/button"
         status.textContent = "Saving entry..."
 
         try {
-            const response = await fetch("/api/guestbook", {
+            const response = await fetch("/api/guestbook?t=1", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload),
