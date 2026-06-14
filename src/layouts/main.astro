@@ -13,7 +13,7 @@ import Footer from "@/components/Footer.astro"
     <title>Astro App</title>
     <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "9236c0af92354b85802c370f4a9e731a"}'></script><!-- End Cloudflare Web Analytics -->
   </head>
-  <body>
+  <body class="min-h-screen flex flex-col">
     <ThemeProvider
       attribute="class"
       defaultTheme="system"
@@ -21,7 +21,9 @@ import Footer from "@/components/Footer.astro"
       disableTransitionOnChange
     >
     <Navbar />
-      <slot />
+      <main class="flex-1">
+        <slot />
+      </main>
       <Footer />
     </ThemeProvider>
   </body>

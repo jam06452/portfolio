@@ -16,6 +16,7 @@
     "typecheck": "astro check"
   },
   "dependencies": {
+    "rss-parser": "^3.12.0",
     "@astrojs/react": "^5",
     "@fontsource-variable/instrument-sans": "^5.2.8",
     "@fontsource-variable/inter": "^5.2.8",

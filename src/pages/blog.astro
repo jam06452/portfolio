@@ -1,10 +1,37 @@
 ---
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
+import Parser from 'rss-parser'
+
+const parser = new Parser()
+const feed = await parser.parseURL('https://medium.com/feed/@jam06452')
+const posts = (feed.items || []).map(item => ({
+    title: item.title,
+    link: item.link,
+    pubDate: item.pubDate,
+    isoDate: item.isoDate,
+    content: item.content || item.contentSnippet || '',
+    guid: item.guid,
+}))
 ---
+
 <Layout>
-    <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
-        <h1 class="text-8xl font-serif mb-4">Blog</h1>
-        <p class="text-muted-foreground text-sm">To read or not to read?</p>
+    <div class="flex flex-col items-center justify-center text-center pt-24 pb-8 px-6">
+        <h1 class="text-6xl md:text-8xl font-serif mb-4">Blog</h1>
+        <p class="text-muted-foreground text-sm">Posts from my Medium feed</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 pb-20">
+        <ul class="grid gap-6">
+            {posts.map(post => (
+                <li class="p-6 border rounded-lg hover:shadow-md transition-shadow bg-card">
+                    <a href={post.link} target="_blank" rel="noopener noreferrer" class="text-xl font-semibold text-primary">
+                        {post.title}
+                    </a>
+                    <div class="text-sm text-muted-foreground mt-1">{new Date(post.pubDate).toLocaleDateString()}</div>
+                    <p class="mt-3 text-sm text-muted-foreground" set:html={post.content}></p>
+                </li>
+            ))}
+        </ul>
     </div>
 </Layout>
