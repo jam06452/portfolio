@@ -34,3 +34,9 @@ import { Button } from "@/components/ui/button"
   </body>
 </html>
 ```
+
+## Guestbook database
+
+The guestbook uses a Cloudflare D1 database through the Pages function at `/api/guestbook`.
+
+Create the table with the SQL in [d1/schema.sql](d1/schema.sql), then bind the database to the function as `DB` in your Cloudflare Pages project.

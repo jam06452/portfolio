@@ -2,9 +2,192 @@
 import Layout from "@/layouts/main.astro"
 import { Button } from "@/components/ui/button"
 ---
+
 <Layout>
-    <div class="flex flex-col items-center justify-center text-center pt-32 pb-20 px-6">
-        <h1 class="text-8xl font-serif mb-4">Guestbook</h1>
-        <p class="text-muted-foreground text-sm">Leave a nice message!</p>
+    <div class="px-6 py-20 sm:py-28">
+        <div class="mx-auto grid w-full max-w-6xl gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+            <section class="relative overflow-hidden rounded-3xl border border-border/60 bg-gradient-to-br from-background via-muted/20 to-muted/40 p-8 sm:p-10 shadow-[0_24px_80px_-48px_rgba(0,0,0,0.45)]">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent"></div>
+                <p class="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                    Guestbook
+                </p>
+                <h1 class="mt-4 text-5xl font-serif leading-none sm:text-7xl">
+                    Leave a note.
+                </h1>
+                <p class="mt-4 max-w-xl text-sm leading-6 text-muted-foreground sm:text-base">
+                    Sign the guestbook with a short message. Entries are saved in Cloudflare D1 and shown here in reverse chronological order.
+                </p>
+
+                <form id="guestbookForm" class="mt-10 space-y-5">
+                    <div class="grid gap-5 sm:grid-cols-2">
+                        <div class="space-y-2">
+                            <label for="name" class="text-sm font-medium tracking-wide">
+                                Name
+                            </label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                maxlength="60"
+                                placeholder="Your name"
+                                required
+                                class="flex h-11 w-full rounded-md border border-border/60 bg-background/80 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            />
+                        </div>
+
+                        <div class="space-y-2 sm:col-span-2">
+                            <label for="message" class="text-sm font-medium tracking-wide">
+                                Message
+                            </label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                maxlength="1000"
+                                rows="5"
+                                placeholder="Say something kind..."
+                                required
+                                class="flex min-h-32 w-full rounded-md border border-border/60 bg-background/80 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 resize-none sm:min-h-[9rem]"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+                        <Button
+                            type="submit"
+                            variant="outline"
+                            className="inline-flex items-center justify-center px-5 py-2.5"
+                        >
+                            Sign guestbook
+                        </Button>
+                        <p id="guestbookStatus" class="text-sm text-muted-foreground" aria-live="polite"></p>
+                    </div>
+                </form>
+            </section>
+
+            <section class="rounded-3xl border border-border/60 bg-muted/20 p-8 sm:p-10">
+                <div class="flex items-end justify-between gap-4">
+                    <div>
+                        <p class="text-xs font-medium uppercase tracking-[0.3em] text-muted-foreground">
+                            Recent entries
+                        </p>
+                        <h2 class="mt-4 text-3xl font-serif sm:text-4xl">What people left behind</h2>
+                    </div>
+                    <p id="guestbookCount" class="text-sm text-muted-foreground"></p>
+                </div>
+
+                <div id="guestbookEntries" class="mt-8 space-y-4"></div>
+            </section>
+        </div>
     </div>
 </Layout>
+
+<script>
+    const form = document.getElementById("guestbookForm")
+    const status = document.getElementById("guestbookStatus")
+    const entries = document.getElementById("guestbookEntries")
+    const count = document.getElementById("guestbookCount")
+
+    if (!(form instanceof HTMLFormElement)) {
+        throw new Error("Guestbook form not found")
+    }
+
+    if (!entries || !count || !status) {
+        throw new Error("Guestbook containers not found")
+    }
+
+    const dateFormatter = new Intl.DateTimeFormat("en", {
+        dateStyle: "medium",
+        timeStyle: "short",
+    })
+
+    const renderEntries = (items) => {
+        entries.textContent = ""
+        count.textContent = `${items.length} ${items.length === 1 ? "entry" : "entries"}`
+
+        if (items.length === 0) {
+            const emptyState = document.createElement("div")
+            emptyState.className =
+                "rounded-2xl border border-dashed border-border/60 bg-background/70 p-6 text-sm text-muted-foreground"
+            emptyState.textContent = "No entries yet. Be the first to sign it."
+            entries.append(emptyState)
+            return
+        }
+
+        for (const item of items) {
+            const article = document.createElement("article")
+            article.className =
+                "rounded-2xl border border-border/60 bg-background/85 p-5 shadow-sm transition-colors hover:bg-background"
+
+            const header = document.createElement("div")
+            header.className = "flex items-center justify-between gap-4"
+
+            const name = document.createElement("h3")
+            name.className = "font-medium tracking-wide"
+            name.textContent = item.name
+
+            const time = document.createElement("time")
+            time.className = "text-xs text-muted-foreground"
+            time.dateTime = item.created_at
+            time.textContent = dateFormatter.format(new Date(item.created_at))
+
+            header.append(name, time)
+
+            const message = document.createElement("p")
+            message.className = "mt-3 whitespace-pre-wrap text-sm leading-6 text-foreground/90"
+            message.textContent = item.message
+
+            article.append(header, message)
+            entries.append(article)
+        }
+    }
+
+    const loadEntries = async () => {
+        status.textContent = "Loading entries..."
+
+        try {
+            const response = await fetch("/api/guestbook")
+            if (!response.ok) {
+                throw new Error(await response.text())
+            }
+
+            const data = await response.json()
+            renderEntries(data.entries ?? [])
+            status.textContent = ""
+        } catch (error) {
+            status.textContent = "Unable to load guestbook entries right now."
+            console.error(error)
+            renderEntries([])
+        }
+    }
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault()
+
+        const formData = new FormData(form)
+        const payload = Object.fromEntries(formData.entries())
+
+        status.textContent = "Saving entry..."
+
+        try {
+            const response = await fetch("/api/guestbook", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+            })
+
+            if (!response.ok) {
+                const result = await response.json().catch(() => null)
+                throw new Error(result?.error ?? "Unable to save entry.")
+            }
+
+            form.reset()
+            status.textContent = "Your entry was added."
+            await loadEntries()
+        } catch (error) {
+            status.textContent = error instanceof Error ? error.message : "Unable to save entry."
+            console.error(error)
+        }
+    })
+
+    loadEntries()
+</script>
