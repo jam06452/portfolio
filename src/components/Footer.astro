@@ -1,42 +1,78 @@
 ---
 import { userData } from "@/lib/user-data"
 import { getLatestCommit } from "@/lib/github"
-
 const commitData = await (async () => {
-    try {
-        return await getLatestCommit(userData.social.github.username, 'portfolio')
-    } catch (e) {
-        return null
-    }
+  try {
+    return await getLatestCommit(userData.social.github.username, "portfolio")
+  } catch (e) {
+    return null
+  }
 })()
 ---
 
-<footer class="flex flex-col items-center justify-center w-full py-10 gap-6 bg-background text-foreground text-center">
-    <div class="text-4xl font-serif tracking-wide select-none sm:text-5xl md:text-6xl">
-        {userData.fullName}
-    </div>
-
-    <div class="flex flex-wrap w-full items-center justify-center gap-x-6 gap-y-3 text-lg font-serif font-light lowercase text-muted-foreground sm:text-xl md:text-2xl">
-        <a href="/about" class="hover:text-foreground transition-colors">about</a>
-        <a href="/guestbook" class="hover:text-foreground transition-colors">guestbook</a>
-        <a href="/projects" class="hover:text-foreground transition-colors">projects</a>
-        <a href="/blog" class="hover:text-foreground transition-colors">blog</a>
-        <a href={userData.social.github.url} target="_blank" class="hover:text-foreground transition-colors">github</a>
-        <a href="/contact" class="hover:text-foreground transition-colors">contact</a>
-    </div>
-
-    <div class="text-sm font-serif tracking-wider text-muted-foreground sm:text-base">
-        commit
-        {commitData ? (
-            <>
-                <a href={commitData.html_url} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-blue-400 hover:underline">{commitData.sha}</a>
-                {' '}on {new Date(commitData.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </>
-        ) : (
-            <>
-                <a href="https://github.com/jam06452/portfolio/commit/fj39ghe" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-blue-400 hover:underline">fj39ghe</a> on June 4, 2026
-            </>
-        )}
-    </div>
-    <!-- integrate the github current commit pulling later -->
+<footer
+  class="flex w-full flex-col items-center justify-center gap-6 bg-background py-10 text-center text-foreground"
+>
+  <div
+    class="font-serif text-4xl tracking-wide select-none sm:text-5xl md:text-6xl"
+  >
+    {userData.fullName}
+  </div>
+  <div
+    class="flex w-full flex-wrap items-center justify-center gap-x-6 gap-y-3 font-serif text-lg font-light text-muted-foreground lowercase sm:text-xl md:text-2xl"
+  >
+    <a href="/about" class="transition-colors hover:text-foreground">about</a>
+    <a href="/guestbook" class="transition-colors hover:text-foreground"
+      >guestbook</a
+    >
+    <a href="/projects" class="transition-colors hover:text-foreground"
+      >projects</a
+    >
+    <a href="/blog" class="transition-colors hover:text-foreground">blog</a>
+    <a
+      href={userData.social.github.url}
+      target="_blank"
+      class="transition-colors hover:text-foreground">github</a
+    >
+    <a href="/contact" class="transition-colors hover:text-foreground"
+      >contact</a
+    >
+  </div>
+  <div
+    class="font-serif text-sm tracking-wider text-muted-foreground sm:text-base"
+  >
+    commit
+    {
+      commitData ? (
+        <>
+          <a
+            href={commitData.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-foreground hover:underline"
+          >
+            {commitData.sha}
+          </a>{" "}
+          on{" "}
+          {new Date(commitData.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </>
+      ) : (
+        <>
+          <a
+            href="https://github.com/jam06452/portfolio/commit/fj39ghe"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-foreground hover:underline"
+          >
+            fj39ghe
+          </a>{" "}
+          on June 4, 2026
+        </>
+      )
+    }
+  </div>
 </footer>

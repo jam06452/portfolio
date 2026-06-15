@@ -52,45 +52,42 @@ const featured = rendered
       <h1 class="pb-10 font-serif text-4xl sm:text-5xl lg:text-6xl">
         Projects
       </h1>
-      <div class="pb-6">
+      <div class="flex w-full flex-col gap-4 pb-6">
         {
-          featured.map((p: any, i: number) => (
-            <div
-              class={
-                i % 2 === 1
-                  ? "flex flex-row-reverse items-start gap-4 pb-10"
-                  : "flex items-start gap-4 pb-10"
-              }
-            >
-              {p.data.image ? (
-                typeof p.data.image === "string" &&
-                p.data.image.startsWith("http") ? (
-                  <img
-                    src={p.data.image}
-                    alt={p.data.title}
-                    width="400"
-                    height="300"
-                    class="h-auto w-2/5 shrink-0 rounded-2xl object-cover"
-                  />
-                ) : (
-                  <img
-                    src={p.data.image.src}
-                    alt={p.data.title}
-                    width="400"
-                    height="300"
-                    class="h-auto w-2/5 shrink-0 rounded-2xl object-cover"
-                  />
-                )
-              ) : null}
-              <div class="flex flex-col gap-2">
-                <h2 class="font-serif text-3xl">{p.data.title}</h2>
-                <p class="text-sm text-muted-foreground">
+          featured.map((p: any) => (
+            <div class="group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-muted/20 transition-colors hover:bg-muted/40">
+              {p.data.image && (
+                <div class="relative h-48 w-full overflow-hidden">
+                  {typeof p.data.image === "string" &&
+                  p.data.image.startsWith("http") ? (
+                    <img
+                      src={p.data.image}
+                      alt={p.data.title}
+                      width="600"
+                      height="300"
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                  ) : (
+                    <img
+                      src={p.data.image.src}
+                      alt={p.data.title}
+                      width="600"
+                      height="300"
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    />
+                  )}
+                </div>
+              )}
+              <div class="flex flex-col gap-3 p-5">
+                <h2 class="font-serif text-2xl">{p.data.title}</h2>
+                <p class="text-sm leading-relaxed text-muted-foreground">
                   {p.data.description}
                 </p>
-                <div class="flex gap-2">
+                <div class="flex gap-2 pt-1">
                   <a href={`/projects/${p.id}`}>
                     <Button variant="default" size="sm">
-                      <ArrowUpRight /> Read more about {p.data.title}
+                      <ArrowUpRight class="size-4" /> Read more about{" "}
+                      {p.data.title}
                     </Button>
                   </a>
                   {p.data.github && (
@@ -119,7 +116,7 @@ const featured = rendered
       </div>
       <a href="/projects">
         <Button variant="outline" size="lg">
-          <ArrowUpRight /> Projects Page
+          <ArrowUpRight class="size-4" /> Projects Page
         </Button>
       </a>
     </div>
@@ -127,8 +124,12 @@ const featured = rendered
     <div class="flex flex-col items-center justify-center p-6 sm:p-8 lg:p-10">
       <h1 class="pb-10 font-serif text-4xl sm:text-5xl lg:text-6xl">Blog</h1>
       <p class="pt-2 text-center text-xs text-muted-foreground">
-        href="/blog" class="underline underline-offset-4 hover:text-foreground"
-        > Browse the blog
+        <a
+          href="/blog"
+          class="underline underline-offset-4 hover:text-foreground"
+        >
+          Browse the blog
+        </a>
       </p>
     </div>
   </div>
