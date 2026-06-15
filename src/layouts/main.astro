@@ -3,6 +3,21 @@ import "@/styles/global.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import Navbar from "@/components/Navbar.astro"
 import Footer from "@/components/Footer.astro"
+
+interface Props {
+  title?: string
+  description?: string
+  canonicalURL?: string
+}
+
+const {
+  title = "Jam06452's Portfolio",
+  description = "Software engineering student and Elixir developer based in the UK.",
+  canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+} = Astro.props
+
+const fullTitle =
+  title === "Jam06452's Portfolio" ? title : `${title} | Jam06452`
 ---
 
 <html lang="en">
@@ -10,17 +25,47 @@ import Footer from "@/components/Footer.astro"
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <title>Jam06452's Portfolio</title>
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Primary -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="jam06452" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- JSON-LD -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "jam06452",
+        url: "https://jam06452.uk",
+        sameAs: ["https://github.com/jam06452"],
+        jobTitle: "Software Developer",
+        knowsAbout: ["Elixir", "Phoenix LiveView"],
+      })}
+    />
   </head>
-  <body class="min-h-screen flex flex-col">
+  <body class="flex min-h-screen flex-col">
     <ThemeProvider
       attribute="class"
       defaultTheme="system"
       enableSystem
       disableTransitionOnChange
     >
-    <Navbar />
-      <main class="flex-1 w-full">
+      <Navbar />
+      <main class="w-full flex-1">
         <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <slot />
         </div>
