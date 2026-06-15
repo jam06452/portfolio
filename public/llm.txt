@@ -1,0 +1,85 @@
+# jam06452's Portfolio
+
+> Personal portfolio of a teen developer based in the UK, specialising in Elixir/Phoenix applications, distributed systems, and self-hosted infrastructure.
+
+## Site
+
+- Homepage: https://jam06452.uk
+- Projects: https://jam06452.uk/projects
+- Blog: https://jam06452.uk/blog (posts from Medium)
+- Contact: https://jam06452.uk/contact
+- Guestbook: https://jam06452.uk/guestbook
+- GitHub: https://github.com/jam06452
+
+---
+
+## About
+
+jam06452 is a UK-based teen developer primarily working with Elixir, Phoenix LiveView, and the BEAM ecosystem. Projects span web applications, developer tooling, open-source libraries, and self-hosted infrastructure. Common infrastructure patterns include Oracle Cloud ARM64 VMs, Docker two-stage builds, Cloudflare Tunnels, and GitHub Actions CI/CD.
+
+---
+
+## Projects
+
+### Sifter
+Self-hosted AI text detection tool, a free alternative to GPTZero and Quillbot.
+
+- URL: https://ai.jam06452.uk
+- Repository: https://github.com/jam06452/ai-detection
+- Stack: Elixir, Phoenix, HuggingFace classifier model (self-hosted), Tailwind CSS, Docker, Oracle Cloud ARM64, Cloudflare Tunnel, GitHub Actions
+- Description: Takes text input, breaks it into chunks, runs each chunk through an AI classification model in parallel using Elixir concurrency primitives, and returns per-chunk and aggregate AI-probability scores. The frontend highlights the original text with opacity scaled to each chunk's score. Uses a two-stage Docker build with model caching so restarts don't re-download the model. Processes chunks in parallel to exploit ARM64 multi-core hardware.
+- Key detail: Does not handle code, only prose. Self-hostable via docker compose up.
+
+### Amur
+Elixir OAuth 2.0 library for Plug-based applications.
+
+- Repository: https://github.com/jam06452/amur
+- Hex.pm: https://hex.pm/packages/amur
+- Stack: Elixir, Plug (no Phoenix dependency required)
+- Description: Declarative OAuth configuration with built-in providers (GitHub, Google, Hack Club Auth). Wraps Assent. Providers implement a `use Amur.Provider` behaviour with `strategy/0`, `base_config/0`, and `normalize_user/1`. Ships an `Amur.Router` that mounts `GET /auth/:provider`, `GET /auth/:provider/callback`, and `GET /auth/logout`. Normalises user data across providers into a consistent map. Success and failure handlers are plain function references in config. Requires `alias: false` on Phoenix scopes when using `forward`.
+- Install: `{:amur, "~> 0.1.0"}`
+
+### FTPDB
+IMDb-style database for Flavortown (hackclub.com) projects, users, and devlogs.
+
+- URL: https://ftpdb.jam06452.uk
+- Repository: https://github.com/jam06452/FTPDB
+- API Docs: https://registry.scalar.com/@jam06452/apis/ftpdb-public-api@latest
+- Stack: Elixir, Phoenix LiveView, Python scraper with TUI, Supabase (Postgres), Cachex, Cloudflare, Oracle Cloud VM, Docker, GitHub Actions
+- Description: Scrapes all Flavortown projects, users, and devlogs into a Postgres database and serves them through a fast, searchable LiveView frontend. Features a public API, markdown-rendered devlog pages, user profiles, a ranking algorithm (hot, fan favourites, top this week), and sub-millisecond cached response times. Reduced random project load from ~5s to ~40ms via Cachex with random-index cache keys. Uses Supabase RPCs for random selection and atomic click counting. Live scraper runs every 30 seconds.
+- Key performance: ~40ms random load, ~150µs cached response time.
+
+### Huai
+Self-hosted document-to-Markdown converter.
+
+- URL: https://huai.jam06452.uk
+- Repository: https://github.com/jam06452/Huai
+- Stack: Elixir, Phoenix LiveView, Python (markitdown, openai via Snex), Tailwind CSS, Docker, Oracle Cloud ARM64, Cloudflare Tunnel, GitHub Actions
+- Description: Drag-and-drop file upload interface that converts PDF, DOCX, PPTX, XLSX, images (OCR/vision), audio (transcription), and video to clean Markdown. Uses async Task-based conversion with handle_info/2 for streaming progress. Two-stage Docker build targeting ARM64.
+
+### URL Shortener
+Personal URL shortener with sub-millisecond redirect latency.
+
+- URL: https://url.jam06452.uk
+- Repository: https://github.com/jam06452/URL_Shortener
+- Stack: Elixir, Phoenix, Supabase (Postgres), Cachex, Oracle Cloud VM, Cloudflare, GitHub Actions
+- Description: Paste a URL, get a short code. Originally built in Python (FastAPI + flat JSON, then Supabase), rewritten in Elixir for BEAM concurrency. Uses Cachex with prewarm strategy (lookup → cache hit returns immediately, cache miss queries Supabase and populates cache). Click tracking via atomic Postgres RPC. Multi-arch Docker image (amd64 + arm64). Cloudflare Worker uses `redirect: "manual"` to forward 302s to the browser rather than consuming them silently.
+- Key performance: ~15ms encoding, ~150µs redirect (cache hit).
+
+---
+
+## Tech Stack Summary
+
+- **Primary language:** Elixir (Phoenix, LiveView, OTP, Ecto, Cachex, Plug)
+- **Secondary:** Python (scraping, ML inference), JavaScript (minimal, vanilla)
+- **Databases:** Supabase / Postgres
+- **Infrastructure:** Oracle Cloud ARM64 VMs, Docker (two-stage builds), Cloudflare Tunnels, GitHub Actions
+- **Deployment pattern:** Multi-arch OCI images (amd64 + arm64), GitHub Container Registry, continuous deployment on push to main
+
+---
+
+## Optional / Non-Essential
+
+- Blog: https://jam06452.uk/blog — posts from Medium feed (no posts currently indexed here)
+- Guestbook: https://jam06452.uk/guestbook
+- Contact: https://jam06452.uk/contact
