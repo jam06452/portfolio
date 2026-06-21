@@ -18,8 +18,8 @@ const JSON_HEADERS = {
 const NAME_MAX_LENGTH = 60
 const MESSAGE_MAX_LENGTH = 1000
 const GUESTBOOK_LIMIT = 50
-const AI_MODERATION_URL = "https://ai.hackclub.com/proxy/v1/chat/completions"
-const AI_MODERATION_MODEL = "qwen/qwen3-32b"
+const AI_MODERATION_URL = "https://baishui.jam06452.uk/v1/chat/completions"
+const AI_MODERATION_MODEL = "gpt-oss-normal"
 const AI_MODERATION_SYSTEM_PROMPT =
   "You need to decide whether the content is appropiate for a portfolio guestbook. No swearing, no hate speech etc. Reply in one word responses. True for appropiate, False for not."
 
@@ -31,8 +31,12 @@ const uuidv7 = (): string => {
   const rand = crypto.getRandomValues(new Uint8Array(10))
   rand[0] = (rand[0] & 0x0f) | 0x70
   rand[2] = (rand[2] & 0x3f) | 0x80
-  const t = timeHigh.toString(16).padStart(8, "0") + timeLow.toString(16).padStart(8, "0")
-  const r = Array.from(rand).map(b => b.toString(16).padStart(2, "0")).join("")
+  const t =
+    timeHigh.toString(16).padStart(8, "0") +
+    timeLow.toString(16).padStart(8, "0")
+  const r = Array.from(rand)
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("")
   return `${t.slice(0, 8)}-${t.slice(8, 12)}-${t.slice(12, 16)}-${r.slice(0, 4)}-${r.slice(4)}`
 }
 
@@ -57,7 +61,8 @@ const parseInput = async (request: Request) => {
   }
 
   const name = typeof payload.name === "string" ? payload.name.trim() : ""
-  const message = typeof payload.message === "string" ? payload.message.trim() : ""
+  const message =
+    typeof payload.message === "string" ? payload.message.trim() : ""
 
   if (!name || !message) {
     console.log("[guestbook] parseInput:missing-fields")
@@ -79,7 +84,11 @@ const parseInput = async (request: Request) => {
   return { name, message }
 }
 
-const moderateGuestbookEntry = async (env: Env, name: string, message: string) => {
+const moderateGuestbookEntry = async (
+  env: Env,
+  name: string,
+  message: string
+) => {
   console.log("[guestbook] moderateGuestbookEntry:start")
 
   if (!env.AI_HACKCLUB_API_KEY) {
@@ -134,8 +143,8 @@ const moderateGuestbookEntry = async (env: Env, name: string, message: string) =
 }
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
-    if (!context.env.DB) {
-        return json({ error: "DB binding not found" }, 500)
+  if (!context.env.DB) {
+    return json({ error: "DB binding not found" }, 500)
   }
   console.log("[guestbook] onRequestGet:start")
   const entries = await context.env.DB.prepare(
@@ -170,16 +179,26 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     if (!input) {
       console.log("[guestbook] onRequestPost:invalid-input")
       return json(
-        { error: "Please provide a name and message within the allowed length limits." },
+        {
+          error:
+            "Please provide a name and message within the allowed length limits.",
+        },
         400
       )
     }
 
-    const isAppropriate = await moderateGuestbookEntry(context.env, input.name, input.message)
+    const isAppropriate = await moderateGuestbookEntry(
+      context.env,
+      input.name,
+      input.message
+    )
 
     if (!isAppropriate) {
       console.log("[guestbook] onRequestPost:rejected-by-moderation")
-      return json({ error: "Please keep guestbook posts kind and appropriate." }, 400)
+      return json(
+        { error: "Please keep guestbook posts kind and appropriate." },
+        400
+      )
     }
 
     const id = uuidv7()
